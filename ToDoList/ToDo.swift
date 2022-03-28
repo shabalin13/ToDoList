@@ -14,13 +14,15 @@ struct ToDo: Equatable, Codable {
     var isComplete: Bool
     var dueDate: Date
     var notes: String?
+    var link: String?
     
-    init(title: String, isComplete: Bool, dueDate: Date, notes: String?) {
+    init(title: String, isComplete: Bool, dueDate: Date, notes: String?, link: String?) {
         self.id = UUID()
         self.title = title
         self.isComplete = isComplete
         self.dueDate = dueDate
         self.notes = notes
+        self.link = link
     }
     
     static let documentsDirectory =
@@ -48,17 +50,17 @@ struct ToDo: Equatable, Codable {
     
     static func loadSampleToDos() -> [ToDo] {
         let toDo1 = ToDo(title: "To-Do One", isComplete: false,
-           dueDate: Date(), notes: "Notes 1")
+                         dueDate: Date(), notes: "Notes 1", link: "https://www.apple.com/")
         let toDo2 = ToDo(title: "To-Do Two", isComplete: false,
-           dueDate: Date(), notes: "Notes 2")
+           dueDate: Date(), notes: "Notes 2", link: "https://www.apple.com/")
         let toDo3 = ToDo(title: "To-Do Three", isComplete: false,
-           dueDate: Date(), notes: "Notes 3")
+           dueDate: Date(), notes: "Notes 3", link: "https://www.apple.com/")
         let toDo4 = ToDo(title: "To-Do Four", isComplete: false,
-           dueDate: Date(), notes: "Notes 4")
+           dueDate: Date(), notes: "Notes 4", link: "https://www.apple.com/")
         let toDo5 = ToDo(title: "To-Do Five", isComplete: false,
-           dueDate: Date(), notes: "Notes 5")
+           dueDate: Date(), notes: "Notes 5", link: "https://www.apple.com/")
         let toDo6 = ToDo(title: "To-Do Six", isComplete: false,
-           dueDate: Date(), notes: "Notes 6")
+           dueDate: Date(), notes: "Notes 6", link: "https://www.apple.com/")
     
         return [toDo1, toDo2, toDo3, toDo4, toDo5, toDo6]
     }

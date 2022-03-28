@@ -164,7 +164,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="rrW-f4-qtN">
-                                                    <rect key="frame" x="8" y="8" width="398" height="217"/>
+                                                    <rect key="frame" x="8" y="8" width="398" height="216.5"/>
                                                     <connections>
                                                         <action selector="datePickerChanged:" destination="9wk-jd-xdi" eventType="primaryActionTriggered" id="i7W-8j-CX4"/>
                                                     </connections>
@@ -207,6 +207,72 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection headerTitle="Safari Link" id="0Tp-V2-Lkh">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="Zya-D3-ruZ">
+                                        <rect key="frame" x="0.0" y="712" width="414" height="50.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Zya-D3-ruZ" id="luq-9d-a7J">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="50.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fyu-6i-Mhi">
+                                                    <rect key="frame" x="8" y="8" width="121" height="34.5"/>
+                                                    <buttonConfiguration key="configuration" style="plain" title="Click to open..."/>
+                                                    <connections>
+                                                        <action selector="safariButtonTapped:" destination="9wk-jd-xdi" eventType="touchUpInside" id="2Kk-tr-Kd8"/>
+                                                    </connections>
+                                                </button>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter link to..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6fG-NP-5Ke">
+                                                    <rect key="frame" x="137" y="8" width="269" height="34.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <action selector="returnPressedLink:" destination="9wk-jd-xdi" eventType="primaryActionTriggered" id="C9X-XZ-IAF"/>
+                                                    </connections>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="6fG-NP-5Ke" firstAttribute="top" secondItem="luq-9d-a7J" secondAttribute="top" constant="8" id="2tY-Hh-0WB"/>
+                                                <constraint firstAttribute="trailing" secondItem="6fG-NP-5Ke" secondAttribute="trailing" constant="8" id="5U3-21-HzU"/>
+                                                <constraint firstItem="fyu-6i-Mhi" firstAttribute="top" secondItem="luq-9d-a7J" secondAttribute="top" constant="8" id="98a-cd-b2q"/>
+                                                <constraint firstItem="6fG-NP-5Ke" firstAttribute="leading" secondItem="fyu-6i-Mhi" secondAttribute="trailing" constant="8" id="ZZb-Fg-56L"/>
+                                                <constraint firstAttribute="bottom" secondItem="6fG-NP-5Ke" secondAttribute="bottom" constant="8" id="gk0-Fh-Q33"/>
+                                                <constraint firstItem="6fG-NP-5Ke" firstAttribute="leading" secondItem="fyu-6i-Mhi" secondAttribute="trailing" constant="8" id="jkh-RT-zjf"/>
+                                                <constraint firstAttribute="bottom" secondItem="fyu-6i-Mhi" secondAttribute="bottom" constant="8" id="lLp-HV-W2m"/>
+                                                <constraint firstItem="fyu-6i-Mhi" firstAttribute="leading" secondItem="luq-9d-a7J" secondAttribute="leading" constant="8" id="lWJ-gE-b55"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Share" id="sMo-9E-m1O">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="UOP-SQ-9je">
+                                        <rect key="frame" x="0.0" y="812.5" width="414" height="47.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="UOP-SQ-9je" id="nob-2J-FSU">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="47.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q0k-0j-PCb">
+                                                    <rect key="frame" x="8" y="8" width="398" height="31.5"/>
+                                                    <buttonConfiguration key="configuration" style="plain" title="Sent To-Do"/>
+                                                    <connections>
+                                                        <action selector="emailButtonTapped:" destination="9wk-jd-xdi" eventType="touchUpInside" id="NQu-T7-GTb"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="q0k-0j-PCb" firstAttribute="top" secondItem="nob-2J-FSU" secondAttribute="top" constant="8" id="2GN-hs-KMK"/>
+                                                <constraint firstItem="q0k-0j-PCb" firstAttribute="leading" secondItem="nob-2J-FSU" secondAttribute="leading" constant="8" id="CL7-MP-hXx"/>
+                                                <constraint firstAttribute="trailing" secondItem="q0k-0j-PCb" secondAttribute="trailing" constant="8" id="WyW-0h-thU"/>
+                                                <constraint firstAttribute="bottom" secondItem="q0k-0j-PCb" secondAttribute="bottom" constant="8" id="dQm-DF-IyX"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="9wk-jd-xdi" id="tD4-JO-kKu"/>
@@ -228,7 +294,9 @@
                     <connections>
                         <outlet property="dueDateDatePicker" destination="rrW-f4-qtN" id="JZq-xH-pMV"/>
                         <outlet property="dueDateLabel" destination="DQW-Mn-Fqb" id="GSu-Qs-mjt"/>
+                        <outlet property="emailButton" destination="q0k-0j-PCb" id="HIG-6g-OxN"/>
                         <outlet property="isCompleteButton" destination="h3l-YZ-doO" id="Ihh-Em-0vR"/>
+                        <outlet property="linkTextField" destination="6fG-NP-5Ke" id="tmY-Hw-r82"/>
                         <outlet property="notesTextView" destination="9dV-Qz-jSf" id="9Li-5A-MCS"/>
                         <outlet property="saveButton" destination="hf4-rv-Set" id="uTG-2t-1XC"/>
                         <outlet property="titleTextField" destination="jwt-OT-vtf" id="zgs-zE-CHc"/>

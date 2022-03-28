@@ -6,16 +6,20 @@
 //
 
 import UIKit
+import SafariServices
+import MessageUI
 
-class ToDoDetailTableViewController: UITableViewController {
+class ToDoDetailTableViewController: UITableViewController, MFMailComposeViewControllerDelegate {
     
     @IBOutlet var titleTextField: UITextField!
     @IBOutlet var isCompleteButton: UIButton!
     @IBOutlet var dueDateLabel: UILabel!
     @IBOutlet var dueDateDatePicker: UIDatePicker!
     @IBOutlet var notesTextView: UITextView!
+    @IBOutlet var linkTextField: UITextField!
     
     @IBOutlet var saveButton: UIBarButtonItem!
+    @IBOutlet var emailButton: UIButton!
     
     var isDatePickerHidden = true
     let dateLabelIndexPath = IndexPath(row: 0, section: 1)
@@ -34,6 +38,7 @@ class ToDoDetailTableViewController: UITableViewController {
             isCompleteButton.isSelected = toDo.isComplete
             currentDueDate = toDo.dueDate
             notesTextView.text = toDo.notes
+            linkTextField.text = toDo.link
         } else {
             currentDueDate = Date().addingTimeInterval(24*60*60)
         }
@@ -41,6 +46,7 @@ class ToDoDetailTableViewController: UITableViewController {
         dueDateDatePicker.date = currentDueDate
         updateDueDateLabel(date: currentDueDate)
         updateSaveButtonState()
+        updateEmailButtonState()
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -91,23 +97,57 @@ class ToDoDetailTableViewController: UITableViewController {
         let isComplete = isCompleteButton.isSelected
         let dueDate = dueDateDatePicker.date
         let notes = notesTextView.text
+        let link = linkTextField.text
         
         if toDo != nil {
             toDo?.title = title
             toDo?.isComplete = isComplete
             toDo?.dueDate = dueDate
             toDo?.notes = notes
+            toDo?.link = link
         } else {
-            toDo = ToDo(title: title, isComplete: isComplete, dueDate: dueDate, notes: notes)
+            toDo = ToDo(title: title, isComplete: isComplete, dueDate: dueDate, notes: notes, link: link)
         }
     }
     
     @IBAction func textEditingChanged(_ sender: UITextField) {
         updateSaveButtonState()
+        updateEmailButtonState()
     }
     
     @IBAction func returnPressed(_ sender: UITextField) {
         sender.resignFirstResponder()
+    }
+    
+    @IBAction func returnPressedLink(_ sender: UITextField) {
+        sender.resignFirstResponder()
+    }
+    
+    func verifyUrl (urlString: String?) -> Bool {
+        if let urlString = urlString {
+            if let url = NSURL(string: urlString) {
+                return UIApplication.shared.canOpenURL(url as URL)
+            }
+        }
+        return false
+    }
+    
+    @IBAction func safariButtonTapped(_ sender: UIButton) {
+        let alertController = UIAlertController(title: "Incorrect link", message: nil, preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alertController.addAction(cancelAction)
+        alertController.popoverPresentationController?.sourceView = sender
+        
+        if let link = linkTextField.text {
+            print(link.count)
+            if verifyUrl(urlString: link) {
+                if let url = URL(string: link) {
+                    let safariViewController = SFSafariViewController(url: url)
+                    present(safariViewController, animated: true,
+                       completion: nil)
+                } else { present(alertController, animated: true, completion: nil) }
+            } else { present(alertController, animated: true, completion: nil) }
+        } else { present(alertController, animated: true, completion: nil) }
     }
     
     @IBAction func isCompleteButtonTapped(_ sender: UIButton) {
@@ -127,6 +167,35 @@ class ToDoDetailTableViewController: UITableViewController {
         dueDateLabel.text = date.formatted(.dateTime.month(.defaultDigits)
             .day().year(.twoDigits).hour().minute())
     }
+    
+    func updateEmailButtonState() {
+        let shouldEnableEmailButton = titleTextField.text?.isEmpty == false
+        emailButton.isEnabled = shouldEnableEmailButton
+    }
+    
+    @IBAction func emailButtonTapped(_ sender: UIButton) {
+        guard MFMailComposeViewController.canSendMail() else { return }
+        
+        let mailComposer = MFMailComposeViewController()
+        mailComposer.mailComposeDelegate = self
+        
+        if let title = titleTextField.text { mailComposer.setSubject(title) }
+        
+        var message = String()
+        if let dueDate = dueDateLabel.text, !dueDate.isEmpty { message += "Due date: \(dueDate)\n\n" }
+        if let notes = notesTextView.text, !notes.isEmpty { message += "Notes:\n \(notes)\n\n" }
+        if let link = linkTextField.text, !link.isEmpty { message += "Link: \(link)"}
+        
+        mailComposer.setMessageBody(message, isHTML: false)
+        present(mailComposer, animated: true, completion: nil)
+    }
+    
+    func mailComposeController(_ controller:
+       MFMailComposeViewController, didFinishWith result:
+       MFMailComposeResult, error: Error?) {
+        dismiss(animated: true, completion: nil)
+    }
+    
     // MARK: - Table view data source
     
     /*
